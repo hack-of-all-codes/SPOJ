@@ -3,14 +3,15 @@
 #include <stdio.h>
 
 int isPrime(unsigned long n) {
-	if (n < 2) {
-		return 0;
-	}
 	if (n == 2 || n == 3) {
 		return 1;
 	}
-	unsigned long i = 4;
-	while (i < n) {
+	if (n==1 || n%2 == 0 || n%3 == 0) {
+		return 0;
+	}
+
+	unsigned long i = 5;
+	while (i <= n) {
 		if (n%4 == 0) {
 			return 0;
 		}
@@ -37,7 +38,7 @@ int main(void) {
 	}
 
 	for (int i=0; i<t; i++) {
-		for (unsigned long j=m_arr[i]; j<n_arr[i]; j++) {
+		for (unsigned long j=m_arr[i]; j<=n_arr[i]; j++) {
 			if (isPrime(j)) {
 				printf("%lu\n", j);
 			}
