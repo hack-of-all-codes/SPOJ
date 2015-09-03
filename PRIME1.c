@@ -1,4 +1,4 @@
-// Problem: PRIME1
+// Problem: PRIME1 - Prime Generator
 // http://www.spoj.com/problems/PRIME1/
 #include <stdio.h>
 
