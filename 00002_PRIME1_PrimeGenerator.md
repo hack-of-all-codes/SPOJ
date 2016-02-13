@@ -1,5 +1,9 @@
-// Problem: PRIME1 - Prime Generator
-// http://www.spoj.com/problems/PRIME1/
+
+# Problem: PRIME1 - Prime Generator
+[SPOJ](http://www.spoj.com/problems/PRIME1/)
+
+C Implementation: REJECTED
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -86,3 +90,4 @@ int main(void) {
 
 	return 0;
 }
+```
