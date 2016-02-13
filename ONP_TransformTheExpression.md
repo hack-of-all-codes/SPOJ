@@ -1,0 +1,108 @@
+
+# Problem: ONP - Transform the Expression
+[SPOJ](http://www.spoj.com/problems/ONP/)
+```
+Transform the algebraic expression with brackets into RPN form (Reverse Polish Notation). 
+Two-argument operators: +, -, *, /, ^ (priority from the lowest to the highest), 
+brackets ( ). Operands: only letters: a,b,...,z. 
+Assume that there is only one RPN form (no expressions like a*b*c).
+```
+
+Java
+```java
+import java.util.Scanner;
+
+class Main {
+	
+	//minimize object creation
+	static final char EMPTY = '.';
+	static final Scanner scanner = new Scanner(System.in);
+	static final StringBuffer buffer = new StringBuffer();
+	
+	public static void main (String[] args) throws java.lang.Exception {
+		int size = scanner.nextInt();
+		while(size>0) {
+			String input = scanner.next();
+			System.out.println(transformToRPN(input));
+			size--;
+		}
+	}
+	
+	static String transformToRPN(String infix) {
+		reset(infix.length()/2);
+		buffer.setLength(0);
+		
+		for (int i=0; i<infix.length(); i++) {
+			char c = infix.charAt(i);
+			if (computePriority(c) == 0) {
+				buffer.append(c);
+			} else if (peek() == EMPTY || peek() == '(' || c == '(') {
+				push(c);
+			} else if (c == ')') {
+				while (peek() != '(') {
+					buffer.append(pop());
+				}
+				pop();
+			} else {
+				char top = peek();
+				if (computePriority(top) > computePriority(c)) {
+					buffer.append(pop());
+				}
+				push(c);
+			}
+		}
+		
+		while (peek() != EMPTY) {
+			buffer.append(pop());
+		}
+		
+		return buffer.toString();
+	}
+	
+	//merge operator check and priority computation in one call
+	//lame engineering but great programming
+	static int computePriority(char operator) {
+		switch (operator) {
+		case '+':
+			return 1; 
+		case '-':
+			return 2;
+		case '*':
+			return 3;
+		case '/':
+			return 4;
+		case '^':
+			return 5;
+		case '(':
+			return -1;
+		case ')':
+			return -2;
+		default:
+			return 0; //operand
+		}
+	}
+	
+	//forced to write a native char stack
+	static char[] stack;
+	static int head;
+	
+	static void push(char c) {
+		stack[++head] = c;
+	}
+	
+	static char peek() {
+		if (head==-1) return EMPTY;
+		return stack[head];
+	}
+	
+	static char pop() {
+		if (head==-1) return EMPTY;
+		return stack[head--];
+	}
+	
+	static void reset(int stackSize) {
+		head = -1;
+		stack = new char[stackSize];
+	}
+}
+```
