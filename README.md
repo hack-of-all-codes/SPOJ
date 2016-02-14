@@ -2,6 +2,7 @@
 Note:
 ```
 Do not judge my engineering skills in this programming competition. 
+I tried to make it as un-shitty as possible without bloating up the heap. 
 ```
 
 
